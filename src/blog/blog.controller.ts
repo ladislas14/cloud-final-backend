@@ -22,7 +22,6 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async index(@Request() request): Promise<Pagination<BlogEntity>> {
     return await this.blogService.paginate({
@@ -45,6 +44,7 @@ export class BlogController {
     return blog;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(
     @Body(new ValidationPipe()) body: BlogModel,
@@ -58,6 +58,7 @@ export class BlogController {
     return await this.blogService.create(body);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put('/{id}')
   async update(
     @Param('id') id: number,

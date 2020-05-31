@@ -22,10 +22,8 @@ export class BlogService {
   ): Promise<Pagination<BlogEntity>> {
     const [results, total] = await this.blogRepository.findAndCount({
       take: options.limit,
-      skip: options.page, // think this needs to be page * limit
+      skip: options.page,
     });
-
-    // TODO add more tests for paginate
 
     return new Pagination<BlogEntity>({
       results,

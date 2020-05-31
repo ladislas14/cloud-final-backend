@@ -18,9 +18,12 @@ describe('BlogService', () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({
       imports: [
-        ConfigModule.load(path.resolve(__dirname, '../', 'config', '*.ts')),
+        ConfigModule.load(
+          path.resolve(__dirname, '../', 'config', '*.ts'),
+        ),
         TypeOrmModule.forRootAsync({
-          useFactory: (config: ConfigService) => config.get('database'),
+          useFactory: (config: ConfigService) =>
+            config.get('database'),
           inject: [ConfigService],
         }),
         BlogModule,
@@ -65,7 +68,6 @@ describe('BlogService', () => {
   });
 
   it('uniqueSlug', async () => {
-
     let sluggedBlog: BlogEntity;
 
     sluggedBlog = await blogService.uniqueSlug({
@@ -100,7 +102,9 @@ describe('BlogService', () => {
   });
 
   afterAll(async () => {
-    const connection = module.get<Connection>(getConnectionToken('default'));
+    const connection = module.get<Connection>(
+      getConnectionToken('default'),
+    );
     await connection.query('TRUNCATE blog_entity');
     app.close();
   });
