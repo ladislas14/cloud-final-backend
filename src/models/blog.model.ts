@@ -15,5 +15,5 @@ export class BlogModel {
 
   published?: boolean;
 
-  photoId?: boolean;
+  photoId?: string;
 }
