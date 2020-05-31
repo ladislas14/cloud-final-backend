@@ -25,7 +25,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Trigger deploy
-        uses: ladislas14/kubernetes-action@1.0.0
+        uses: ladislas14/kubernetes-action@1.0.1
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
