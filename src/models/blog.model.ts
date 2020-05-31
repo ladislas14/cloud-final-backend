@@ -1,4 +1,4 @@
-import { IsString, IsDate } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class BlogModel {
   readonly id: number;

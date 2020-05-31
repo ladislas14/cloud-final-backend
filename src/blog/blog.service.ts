@@ -8,7 +8,6 @@ import {
 } from './../paginate';
 import { SlugProvider } from './slug.provider';
 import { BlogModel } from '../models/blog.model';
-import { IFile } from 'src/interfaces/IFile';
 import { AwsS3Service } from 'src/shared/services/aws-s3.service';
 import { IAwsfileSignedUrl } from 'src/interfaces/IAwsfileSignedUrl.interface';
 
