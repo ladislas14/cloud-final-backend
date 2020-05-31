@@ -9,22 +9,29 @@ import {
   Body,
   ValidationPipe,
   UnprocessableEntityException,
+  UseGuards,
 } from '@nestjs/common';
 import { BlogEntity } from '../entities/blog.entity';
 import { Pagination } from './../paginate';
 import { BlogService } from './blog.service';
 import { BlogModel } from '../models/blog.model';
 import { UpdateResult } from 'typeorm';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('blog')
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async index(@Request() request): Promise<Pagination<BlogEntity>> {
     return await this.blogService.paginate({
-      limit: request.query.hasOwnProperty('limit') ? request.query.limit : 10,
-      page: request.query.hasOwnProperty('page') ? request.query.page : 0,
+      limit: request.query.hasOwnProperty('limit')
+        ? request.query.limit
+        : 10,
+      page: request.query.hasOwnProperty('page')
+        ? request.query.page
+        : 0,
     });
   }
 
