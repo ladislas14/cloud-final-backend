@@ -1,0 +1,14 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend-service
+  labels:
+    app: backend
+spec:
+  ports:
+    - port: 3000
+      targetPort: http-server
+  selector:
+    app: backend
+  type: LoadBalancer
