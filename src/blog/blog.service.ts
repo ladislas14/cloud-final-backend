@@ -8,6 +8,9 @@ import {
 } from './../paginate';
 import { SlugProvider } from './slug.provider';
 import { BlogModel } from '../models/blog.model';
+import { IFile } from 'src/interfaces/IFile';
+import { AwsS3Service } from 'src/shared/services/aws-s3.service';
+import { IAwsfileSignedUrl } from 'src/interfaces/IAwsfileSignedUrl.interface';
 
 @Injectable()
 export class BlogService {
@@ -15,6 +18,7 @@ export class BlogService {
     @InjectRepository(BlogEntity)
     private readonly blogRepository: Repository<BlogEntity>,
     private readonly slugProvider: SlugProvider,
+    private readonly awsS3Service: AwsS3Service,
   ) {}
 
   async paginate(
@@ -23,6 +27,7 @@ export class BlogService {
     const [results, total] = await this.blogRepository.findAndCount({
       take: options.limit,
       skip: options.page,
+      order: { created: 'DESC' },
     });
 
     return new Pagination<BlogEntity>({
@@ -86,5 +91,11 @@ export class BlogService {
       .createQueryBuilder('blog')
       .where('slug like :slug', { slug: `${slug}%` })
       .getMany();
+  }
+
+  public async uploadPhoto(photo: IAwsfileSignedUrl) {
+    const imageId = await this.awsS3Service.getSignedUrl(photo);
+
+    return imageId;
   }
 }

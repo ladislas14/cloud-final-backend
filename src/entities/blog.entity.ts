@@ -22,4 +22,7 @@ export class BlogEntity extends BaseEntity {
     nullable: true,
   })
   publish_at: Date | null;
+
+  @Column({ nullable: true })
+  photoId?: string;
 }

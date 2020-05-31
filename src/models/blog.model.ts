@@ -14,4 +14,6 @@ export class BlogModel {
   publishAt?: Date;
 
   published?: boolean;
+
+  photoId?: boolean;
 }
